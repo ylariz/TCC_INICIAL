@@ -1,0 +1,108 @@
+{
+  "intents": [
+    {
+      "tag": "variavel",
+      "patterns": [
+        "o que e uma variavel",
+        "como criar uma variavel em python",
+        "como declarar uma variavel",
+        "para que serve uma variavel",
+        "como guardar um valor em uma variavel"
+      ],
+      "responses": [
+        "Uma variável é um nome usado para guardar um valor. Em Python, você pode criar uma variável assim: idade = 20."
+      ]
+    },
+    {
+      "tag": "lista",
+      "patterns": [
+        "o que e uma lista",
+        "como criar uma lista",
+        "como adicionar item em uma lista",
+        "como remover item de uma lista",
+        "como acessar uma lista"
+      ],
+      "responses": [
+        "Uma lista armazena vários valores em uma sequência. Exemplo: frutas = ['maça', 'banana']. Você pode acessar o primeiro elemento com frutas[0]."
+      ]
+    },
+    {
+      "tag": "dicionario",
+      "patterns": [
+        "o que e um dicionario",
+        "como criar um dicionario",
+        "como acessar valor no dicionario",
+        "como adicionar chave no dicionario",
+        "para que serve dicionario"
+      ],
+      "responses": [
+        "Um dicionário armazena dados em pares de chave e valor. Exemplo: aluno = {'nome': 'Ana', 'idade': 20}."
+      ]
+    },
+    {
+      "tag": "funcao",
+      "patterns": [
+        "o que e uma funcao",
+        "como criar uma funcao",
+        "como definir uma funcao",
+        "para que serve uma funcao",
+        "como passar parametro para funcao"
+      ],
+      "responses": [
+        "Uma função agrupa instruções que podem ser reutilizadas. Exemplo: def somar(a, b): return a + b."
+      ]
+    },
+    {
+      "tag": "if_else",
+      "patterns": [
+        "como usar if",
+        "como fazer uma condicao",
+        "como usar if e else",
+        "para que serve if",
+        "como comparar valores em python"
+      ],
+      "responses": [
+        "Use if para executar um bloco quando uma condição for verdadeira. Exemplo: if idade >= 18: print('maior de idade')."
+      ]
+    },
+    {
+      "tag": "for",
+      "patterns": [
+        "como usar for",
+        "como fazer um laco for",
+        "para que serve for",
+        "como percorrer uma lista com for",
+        "como repetir algo com for"
+      ],
+      "responses": [
+        "O for percorre elementos de uma sequência. Exemplo: for nome in nomes: print(nome)."
+      ]
+    },
+    {
+      "tag": "while",
+      "patterns": [
+        "como usar while",
+        "para que serve while",
+        "como fazer um laco while",
+        "como repetir enquanto uma condicao for verdadeira",
+        "qual a diferenca entre for e while"
+      ],
+      "responses": [
+        "O while repete um bloco enquanto uma condição for verdadeira. Exemplo: while contador < 5: contador += 1."
+      ]
+    },
+    {
+      "tag": "erro",
+      "patterns": [
+        "por que meu codigo da erro",
+        "como entender um erro em python",
+        "o que fazer quando aparece um erro",
+        "como corrigir erro no python",
+        "meu programa nao funciona"
+      ],
+      "responses": [
+        "Comece lendo a mensagem do erro e observe a linha indicada. Se você enviar o código e o erro completo, podemos analisar juntos."
+      ]
+    }
+  ]
+}
