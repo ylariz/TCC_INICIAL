@@ -11,7 +11,7 @@
 <body>
 
 
-    <aside class="menu-lateral">
+    <aside class="menu-lateral" id="menu-lateral">
 
         <div class="logo">☰</div>
 
@@ -29,13 +29,13 @@
 
     <main class="main-content">
         <header class="topbar">
-            <button class="menu-button">☰</button>
+            <button class="menu-button" onclick="abrirMenu()">☰</button>
         </header>
 
         <section class="content">
             <div class="chat-container">
 
-                <div class="chat-box">
+                <div class="chat-box" id="chat-box">
                     <div class="message ia">
                         Olá sou Yana!, como posso ajudar?
                     </div>
@@ -46,7 +46,11 @@
                 </div>
 
                 <div class="chat-input">
-                    Digite sua mensagem...
+                    <input type="text" id="message-input" placeholder="Digite sua mensagem...">
+
+                    <button type="button" onclick="enviarMensagem()">
+                        Enviar
+                    </button>
                 </div>
 
             </div>
@@ -54,11 +58,11 @@
             <div class="code-container">
 
                 <div class="terminal">
-                    
+
                     <p>TERMINAL</p>
                     <textarea id="terminal"></textarea>
                 </div>
-                
+
 
                 <div class="feedback">
                     <p>Resultado do código...</p>
@@ -68,6 +72,8 @@
             </div>
         </section>
     </main>
+
+    <script src="./js/chat.js"></script>
 </body>
 
 </html>

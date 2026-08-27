@@ -12,12 +12,22 @@ body {
 }
 
 .menu-lateral {
+    position: fixed;
+    top: 0;
+    left: -260px;
     width: 260px;
+    height: 100vh;
     background-color: #c7ab86;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
+    transition: left 0.3s;
+    z-index: 10;
+}
+
+.menu-lateral.menu-aberto {
+    left: 0;
 }
 
 .logo {
@@ -107,26 +117,54 @@ body {
 }
 
 .chat-input {
-    height: 80px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     background-color: #d8c3a5;
+    border: 1px solid #9c795c;
     border-radius: 20px;
-    padding: 20px;
-    border: 1px solid black;
+    padding: 12px;
+}
+
+.chat-input input {
+    flex: 1;
+    height: 45px;
+    padding: 0 15px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.chat-input input::placeholder {
+    color: #725c4c;
+}
+
+.chat-input button {
+    height: 45px;
+    padding: 0 20px;
+    background-color: #8c674d;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: #70503c;
 }
 
 .chat-container {
     display: flex;
     flex-direction: column;
-    gap: 3%;
-    border: 3px solid #0762ff;
+    gap: 15px;
     width: 45%;
-
+    min-height: 0;
 }
 
 .code-container {
-    border: 3px solid #e80707;
     width: 50%;
-    ;
 }
 
 .content {
