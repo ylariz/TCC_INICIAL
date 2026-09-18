@@ -54,6 +54,7 @@ def treinar(epocas=150, taxa_aprendizado=0.001, tamanho_lote=8):
             saidas = modelo(entradas)
             perda = criterio(saidas, alvos)
             perda.backward()
+            torch.nn.utils.clip_grad_norm_(modelo.parameters(), max_norm=5.0)
             otimizador.step()
             perda_total += perda.item()
 
