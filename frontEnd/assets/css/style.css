@@ -6,6 +6,7 @@
 
 body {
     height: 100vh;
+    overflow: hidden;
     display: flex;
     background-color: #F4E6D3;
     font-family: Arial, Helvetica, sans-serif;
@@ -22,7 +23,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
-    transition: left 0.3s;
+    transition: left 0.5s;
     z-index: 10;
 }
 
@@ -83,6 +84,19 @@ body {
     cursor: pointer;
 }
 
+.menu-superior {
+    border: 1px solid red;
+}
+
+.elementos a {
+    text-decoration: none;
+
+}
+
+.elementos ul {
+    list-style-type: none;
+}
+
 .content {
     height: calc(100% - 60px);
     display: flex;
@@ -91,6 +105,7 @@ body {
 
 .chat-box {
     flex: 1;
+    min-height: 0;
     background-color: #e8dccb;
     border-radius: 20px;
     padding: 20px;
@@ -103,6 +118,9 @@ body {
     border-radius: 15px;
     margin-bottom: 15px;
     border: 1px solid black;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+
 
 }
 
@@ -180,8 +198,8 @@ textarea {
 }
 
 #terminal {
-padding: 30%;
-background-color: #383737;
+    padding: 30%;
+    background-color: #383737;
 }
 
 #feedback {

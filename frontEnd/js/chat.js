@@ -7,7 +7,7 @@ function enviarMensagem() {
         alert("Digite uma mensagem!");
     } else {
         caixaChat.innerHTML +=
-            '<div class="message user">' + texto + "</div>";
+            '<div class="message user">' + texto + "<br>" + "</div>";
         campoMensagem.value = "";
         respostaSimulada();
     }
@@ -18,7 +18,7 @@ function respostaSimulada() {
 
     caixaChat.innerHTML +=
         '<div class="message ia">' +
-        "Esta é uma resposta de teste. A rede neural ainda vai ser implementada" +
+        "Esta é uma resposta de teste. A rede neural ainda vai ser implementada rs" +
         "</div>";
 }
 
@@ -26,3 +26,8 @@ function abrirMenu() {
     var menu = document.getElementById("menu-lateral");
     menu.classList.toggle("menu-aberto");
 }
+
+
+document.getElementById("message-input").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") enviarMensagem();
+});
