@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from modelo.embeddings import Embeddings
+from IA.modelo.embeddings import Embeddings
 
 
 class RedeTutorPython(nn.Module):

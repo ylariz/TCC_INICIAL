@@ -1,5 +1,5 @@
-from modelo.tokenizer import tokenizar
-from modelo.vocabulario import Vocabulario
+from IA.modelo.tokenizer import tokenizar
+from IA.modelo.vocabulario import Vocabulario
 
 
 def testar_tokenizador():

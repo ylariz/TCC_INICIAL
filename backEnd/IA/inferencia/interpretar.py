@@ -1,4 +1,4 @@
-from modelo.tokenizer import tokenizar
+from IA.modelo.tokenizer import tokenizar
 
 
 def interpretar(pergunta, vocabulario, tamanho_maximo):

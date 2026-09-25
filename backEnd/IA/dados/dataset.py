@@ -4,8 +4,8 @@ from pathlib import Path
 import torch
 from torch.utils.data import Dataset
 
-from modelo.tokenizer import tokenizar
-from modelo.vocabulario import Vocabulario
+from IA.modelo.tokenizer import tokenizar
+from IA.modelo.vocabulario import Vocabulario
 
 
 class DatasetTutor(Dataset):

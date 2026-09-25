@@ -3,10 +3,10 @@ from pathlib import Path
 
 import torch
 
-from inferencia.contexto import Contexto
-from inferencia.interpretar import interpretar
-from modelo.modelo import RedeTutorPython
-from modelo.vocabulario import Vocabulario
+from IA.inferencia.contexto import Contexto
+from IA.inferencia.interpretar import interpretar
+from IA.modelo.modelo import RedeTutorPython
+from IA.modelo.vocabulario import Vocabulario
 
 
 RAIZ = Path(__file__).resolve().parents[1]

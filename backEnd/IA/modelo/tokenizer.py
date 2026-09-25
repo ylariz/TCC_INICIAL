@@ -1,4 +1,4 @@
-from utils.limpeza import limpar_texto
+from IA.utils.limpeza import limpar_texto
 
 
 def tokenizar(texto):

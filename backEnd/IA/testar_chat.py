@@ -1,4 +1,4 @@
-from inferencia.responder import Responder
+from IA.inferencia.responder import Responder
 
 
 PERGUNTAS = {

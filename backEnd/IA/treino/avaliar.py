@@ -3,8 +3,8 @@ from pathlib import Path
 import torch
 from torch.utils.data import DataLoader
 
-from dados.dataset import DatasetTutor
-from modelo.modelo import RedeTutorPython
+from IA.dados.dataset import DatasetTutor
+from IA.modelo.modelo import RedeTutorPython
 
 
 RAIZ = Path(__file__).resolve().parents[1]
