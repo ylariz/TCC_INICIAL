@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from API.controllers.predictionController import pergunta
-from API.models.predicitionModel import PredictionRequest
+from API.models.predictionModel import PredictionRequest
 
 router = APIRouter()
 
