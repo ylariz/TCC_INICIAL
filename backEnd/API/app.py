@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 import uvicorn
 
-from API.routes.predictionRoute import router
+from API.routes.predictionRoute import router as prediciton_router
+from API.routes.interpreterRoute import router as interpreter_router
 from API.middlewares.errors import register_error_handler
 
 app = FastAPI()
@@ -15,7 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(router)
+app.include_router(prediciton_router)
+app.include_router(interpreter_router)
 register_error_handler(app)
 
 if __name__ == "__main__":
