@@ -1,29 +1,64 @@
-import io
-import contextlib
+import subprocess
+import sys
+import textwrap
 import traceback
 
+
 def executar_codigo(codigo, entrada):
-    saida = io.StringIO()
+    wrapper = f"""
+        import traceback
 
-    entradas = iter(entrada.splitlines())
+        codigo = {codigo!r}
+        entrada = {entrada!r}
 
-    def meu_input(prompt=""):
-        print(prompt, end="")
-        return next(entradas)
+        entradas = entrada.splitlines()
+
+
+        def inputs(mensagem=""):
+            if not entradas:
+                raise RuntimeError("Não há mais entradas disponíveis.")
+
+            return entradas.pop(0)
+
+
+        try:
+            exec(codigo, {{"input": inputs}})
+
+        except Exception:
+            print(traceback.format_exc(), end="")
+        """
 
     try:
-        with contextlib.redirect_stdout(saida):
-            exec(codigo, {"input": meu_input})
+        processo = subprocess.Popen(
+            [sys.executable, "-u", "-c", textwrap.dedent(wrapper)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True
+        )
 
-        return {
-            "sucesso": True,
-            "saida": saida.getvalue(),
-            "erro": None
-        }
+        try:
+            saida, _ = processo.communicate(timeout=0.2)
 
-    except Exception as erro:
+            return {
+                "sucesso": processo.returncode == 0,
+                "saida": saida,
+                "erro": None if processo.returncode == 0 else saida
+            }
+
+        except subprocess.TimeoutExpired:
+            processo.kill()
+
+            saida, _ = processo.communicate()
+
+            return {
+                "sucesso": False,
+                "saida": saida,
+                "erro": "Execução interrompida: limite de tempo excedido."
+            }
+
+    except Exception:
         return {
             "sucesso": False,
-            "saida": saida.getvalue(),
+            "saida": "",
             "erro": traceback.format_exc()
         }
