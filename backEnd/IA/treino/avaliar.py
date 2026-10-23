@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader
 
 from IA.dados.dataset import DatasetTutor
 from IA.modelo.modelo import RedeTutorPython
+from IA.treino.treino import medir
 
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -24,25 +25,17 @@ def avaliar():
 
     modelo = RedeTutorPython(
         checkpoint["tamanho_vocabulario"],
-        checkpoint["quantidade_classes"],
+        checkpoint["quantidade_topicos"],
+        checkpoint["quantidade_tipos"],
     )
     modelo.load_state_dict(checkpoint["modelo"])
     modelo.eval()
 
-    loader = DataLoader(dataset, batch_size=16)
-    acertos = 0
-    total = 0
+    loader = DataLoader(dataset, batch_size=32)
+    acc_topico, acc_tipo, acc_ambos = medir(modelo, loader)
 
-    with torch.no_grad():
-        for entradas, alvos in loader:
-            saidas = modelo(entradas)
-            previsoes = torch.argmax(saidas, dim=1)
-            acertos += (previsoes == alvos).sum().item()
-            total += alvos.size(0)
-
-    acuracia = acertos / total if total else 0.0
-    print(f"Acuracia no dataset: {acuracia:.2%}")
-    return acuracia
+    print(f"Acurácia no dataset -> tópico: {acc_topico:.2%}  tipo: {acc_tipo:.2%}  ambos: {acc_ambos:.2%}")
+    return acc_ambos
 
 
 if __name__ == "__main__":

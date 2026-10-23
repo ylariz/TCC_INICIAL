@@ -1,5 +1,10 @@
 from API.services.predictionService import response
 
 def pergunta(request):
-    resposta = {"resposta": response(request.text)}
+    res = response(request.text)
+    resposta = {
+        "resposta": res["resposta"],
+        "intencao": res["intencao"],
+        "confianca": res["confianca"],
+    }
     return resposta
