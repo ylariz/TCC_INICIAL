@@ -5,10 +5,18 @@ from IA.modelo.embeddings import Embeddings
 
 
 class RedeTutorPython(nn.Module):
+    """LSTM bidirecional com duas saídas (multitarefa):
+    - classificador_topico: qual assunto de Python (variavel, lista, for...)
+    - classificador_tipo:   o que o aluno quer (conceito, exemplo, erro, comparacao)
+
+    As duas saídas compartilham os embeddings e a LSTM, então o que a rede
+    aprende sobre a frase serve para as duas tarefas ao mesmo tempo."""
+
     def __init__(
         self,
         tamanho_vocabulario,
-        quantidade_classes,
+        quantidade_topicos,
+        quantidade_tipos,
         dimensao_embedding=64,
         dimensao_oculta=64,
         num_camadas=1,
@@ -29,7 +37,8 @@ class RedeTutorPython(nn.Module):
 
         direcoes = 2 if bidirecional else 1
         self.dropout = nn.Dropout(dropout)
-        self.classificador = nn.Linear(dimensao_oculta * direcoes, quantidade_classes)
+        self.classificador_topico = nn.Linear(dimensao_oculta * direcoes, quantidade_topicos)
+        self.classificador_tipo = nn.Linear(dimensao_oculta * direcoes, quantidade_tipos)
 
     def forward(self, indices):
         comprimentos = (indices != 0).sum(dim=1).clamp(min=1).cpu()
@@ -47,4 +56,4 @@ class RedeTutorPython(nn.Module):
             oculto_final = oculto[-1]
 
         oculto_final = self.dropout(oculto_final)
-        return self.classificador(oculto_final)
+        return self.classificador_topico(oculto_final), self.classificador_tipo(oculto_final)

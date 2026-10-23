@@ -207,3 +207,385 @@ textarea {
     background-color: #b08968;
 
 }
+
+/* =========================================================
+   MELHORIAS (branch melhorias)
+   Tudo daqui pra baixo só complementa o que já existia:
+   mesmas cores, mesma estrutura. Pode apagar este bloco
+   inteiro que o site volta a ser exatamente como era.
+   ========================================================= */
+
+/* Lista do menu superior sem bolinhas (a regra .elementos ul já existia) */
+.elementos ul {
+    padding: 4px;
+}
+
+/* ---------- Menu lateral ---------- */
+.menu-lateral {
+    transition: left 0.5s ease, box-shadow 0.5s ease;
+}
+
+.menu-lateral.menu-aberto {
+    box-shadow: 4px 0 18px rgba(0, 0, 0, 0.15);
+}
+
+.logo,
+.settings,
+.menu-button {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.logo:hover,
+.menu-button:hover {
+    transform: scale(1.1);
+}
+
+.settings:hover {
+    transform: rotate(60deg);
+}
+
+/* ---------- Chat ---------- */
+.chat-box {
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    line-height: 1.45;
+    width: fit-content;
+    animation: mensagem-entrando 0.3s ease-out both;
+}
+
+.ia {
+    border-bottom-left-radius: 4px;
+}
+
+.user {
+    border-bottom-right-radius: 4px;
+}
+
+@keyframes mensagem-entrando {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* "Yana está pensando..." com os pontinhos piscando */
+.message.pensando::after {
+    content: "";
+    display: inline-block;
+    width: 1.2em;
+    text-align: left;
+    animation: pontinhos 1.2s steps(4, end) infinite;
+}
+
+@keyframes pontinhos {
+    0%   { content: ""; }
+    25%  { content: "."; }
+    50%  { content: ".."; }
+    75%  { content: "..."; }
+}
+
+/* Código dentro das respostas da Yana (usa as cores do terminal) */
+.message pre.codigo {
+    margin: 10px 0;
+    padding: 12px;
+    background-color: #383737;
+    color: #F4E6D3;
+    border-radius: 10px;
+    overflow-x: auto;
+    white-space: pre;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Mensagem com código fica mais larga para o código não ser cortado */
+.message:has(pre.codigo) {
+    max-width: 95%;
+}
+
+/* Barra de rolagem do chat nas cores do site */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: #c7ab86;
+    border-radius: 10px;
+}
+
+.chat-box {
+    scrollbar-width: thin;
+    scrollbar-color: #c7ab86 transparent;
+}
+
+/* ---------- Campo de mensagem ---------- */
+.chat-input {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.chat-input:focus-within {
+    border-color: #70503c;
+    box-shadow: 0 0 0 3px rgba(140, 103, 77, 0.2);
+}
+
+.chat-input button {
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.chat-input button:active {
+    transform: scale(0.95);
+}
+
+.chat-input button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Treme de leve quando tentam enviar mensagem vazia */
+.chat-input.vazio {
+    animation: tremer 0.35s ease;
+}
+
+@keyframes tremer {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+}
+
+/* ---------- Terminal e resultado ---------- */
+#terminal,
+#feedback {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 15px;
+    line-height: 1.5;
+    outline: none;
+}
+
+#terminal {
+    color: #F4E6D3;
+    caret-color: #F4E6D3;
+}
+
+#terminal::placeholder {
+    color: #8a8584;
+}
+
+.terminal p,
+.feedback p {
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+/* ---------- Celular / tela pequena ---------- */
+@media (max-width: 900px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .main-content {
+        min-width: 0;
+    }
+
+    .content {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .chat-container,
+    .code-container {
+        width: 100%;
+    }
+
+    .chat-container {
+        height: 75vh;
+    }
+
+    .code-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #terminal {
+        padding: 15%;
+        min-height: 300px;
+    }
+
+    .message {
+        max-width: 85%;
+    }
+}
+
+/* Quem desativou animações no sistema não vê animação */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* =========================================================
+   RAPOSA MASCOTE (js/raposa.js)
+   Fica sentada na borda de cima da caixa de mensagem.
+   Para tirar a raposa, apague este bloco, o <button id="raposa">
+   e o <script src="./js/raposa.js"> do index.html.
+   ========================================================= */
+
+.chat-container {
+    position: relative;
+}
+
+/* espaço no fim do chat para a última mensagem não ficar atrás da raposa */
+.chat-box {
+    padding-bottom: 100px;
+}
+
+.raposa {
+    position: absolute;
+    right: 96px;
+    bottom: 64px;          /* patas encostadas na borda de cima da caixa de mensagem */
+    width: 152px;
+    height: 111px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.raposa:focus-visible {
+    outline: 3px solid #70503c;
+    outline-offset: 3px;
+}
+
+.raposa img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 100%;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* pulinho ao acordar, ao receber mensagem e no carinho */
+.raposa.pulando img {
+    animation: raposa-pulo 0.45s ease-out;
+}
+
+@keyframes raposa-pulo {
+    0%   { transform: translateY(0) scale(1.05, 0.9); }
+    40%  { transform: translateY(-14px) scale(0.95, 1.05); }
+    100% { transform: translateY(0) scale(1, 1); }
+}
+
+/* achatadinha ao deitar */
+.raposa.deitando img {
+    animation: raposa-deitar 0.35s ease-in;
+}
+
+@keyframes raposa-deitar {
+    0%   { transform: scale(1, 1); }
+    100% { transform: scale(1.06, 0.92); }
+}
+
+/* inclinadinha de cabeça */
+.raposa.inclinando img {
+    animation: raposa-inclinar 0.7s ease-in-out;
+}
+
+@keyframes raposa-inclinar {
+    0%, 100% { transform: rotate(0); }
+    35%      { transform: rotate(-4deg); }
+    70%      { transform: rotate(2deg); }
+}
+
+/* respiração lenta enquanto dorme */
+.raposa.dormindo img {
+    animation: raposa-respirar 2.6s ease-in-out infinite;
+}
+
+@keyframes raposa-respirar {
+    0%, 100% { transform: scale(1, 1); }
+    50%      { transform: scale(1.015, 1.035); }
+}
+
+/* "z z z" e "!" */
+.raposa-balao {
+    position: absolute;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    color: #1d2033;
+    pointer-events: none;
+}
+
+.raposa-balao.zzz {
+    right: 30px;
+    top: 36px;
+    font-size: 15px;
+    opacity: 0;
+    animation: raposa-zzz 2.4s ease-out infinite;
+}
+
+.raposa-balao.zzz:nth-of-type(2) { animation-delay: 0.8s; font-size: 12px; }
+.raposa-balao.zzz:nth-of-type(3) { animation-delay: 1.6s; font-size: 18px; }
+
+@keyframes raposa-zzz {
+    0%   { opacity: 0; transform: translate(0, 10px); }
+    25%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(14px, -26px); }
+}
+
+.raposa-balao.exclamacao {
+    left: 66%;
+    top: 14px;
+    font-size: 22px;
+    animation: raposa-surgir 0.9s ease-out forwards;
+}
+
+@keyframes raposa-surgir {
+    0%   { opacity: 0; transform: translate(-50%, 6px) scale(0.6); }
+    25%  { opacity: 1; transform: translate(-50%, 0) scale(1.15); }
+    75%  { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -6px); }
+}
+
+@media (max-width: 900px) {
+    .raposa {
+        right: 90px;
+        width: 122px;
+        height: 89px;
+    }
+
+    .chat-box {
+        padding-bottom: 85px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .raposa-balao.zzz {
+        opacity: 1;
+        animation: none;
+    }
+
+    .raposa-balao.zzz:nth-of-type(2),
+    .raposa-balao.zzz:nth-of-type(3) {
+        display: none;
+    }
+}

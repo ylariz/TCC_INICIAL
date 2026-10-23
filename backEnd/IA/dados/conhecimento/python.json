@@ -1,4 +1,34 @@
 {
   "descricao": "Base inicial de conhecimento do tutor de Python.",
-  "observacao": "As respostas detalhadas serão ampliadas conforme novos exercícios e dúvidas reais forem adicionados ao projeto."
+  "observacao": "As respostas detalhadas serão ampliadas conforme novos exercícios e dúvidas reais forem adicionados ao projeto.",
+  "extras": {
+    "variavel": {
+      "dia_a_dia": "Pense numa variável como uma caixa com etiqueta: a etiqueta é o nome e o que está dentro é o valor. Você pode trocar o conteúdo da caixa quando quiser, mas a etiqueta continua a mesma.",
+      "codigo": "# Guardando informações de um aluno\nnome = 'Ana'        # texto (str)\nidade = 16          # número inteiro (int)\nnota = 8.5          # número com vírgula (float)\n\nprint(nome, 'tem', idade, 'anos')\n\n# A caixa 'idade' recebe um valor novo\nidade = idade + 1\nprint('Ano que vem:', idade)"
+    },
+    "lista": {
+      "dia_a_dia": "Uma lista é como a lista de compras do mercado: os itens ficam em ordem, você pode riscar um, acrescentar outro no fim e perguntar qual é o primeiro item.",
+      "codigo": "# Lista de compras\ncompras = ['arroz', 'feijão', 'café']\n\ncompras.append('leite')    # acrescenta no fim\ncompras.remove('café')     # risca um item\n\nprint(compras[0])          # primeiro item: arroz\nprint(len(compras))        # quantos itens: 3\n\n# Passa por cada item da lista\nfor item in compras:\n    print('Comprar:', item)"
+    },
+    "dicionario": {
+      "dia_a_dia": "Um dicionário funciona como a agenda de contatos do celular: você procura pelo nome (a chave) e encontra o telefone (o valor). Não existem dois contatos com exatamente o mesmo nome.",
+      "codigo": "# Agenda de contatos\nagenda = {'Ana': '9999-1111', 'Beto': '9888-2222'}\n\nprint(agenda['Ana'])             # busca pelo nome\nagenda['Carla'] = '9777-3333'    # novo contato\nagenda['Beto'] = '9000-0000'     # troca o número\n\n# get evita erro se o nome não existir\nprint(agenda.get('Davi', 'não encontrado'))\n\nfor nome, telefone in agenda.items():\n    print(nome, '->', telefone)"
+    },
+    "funcao": {
+      "dia_a_dia": "Uma função é como uma receita de bolo: você escreve o passo a passo uma vez e depois é só usar a receita sempre que quiser, trocando os ingredientes (os parâmetros). No fim, a receita te entrega o bolo pronto (o return).",
+      "codigo": "# Receita que calcula a média de duas notas\ndef calcular_media(nota1, nota2):\n    media = (nota1 + nota2) / 2\n    return media          # entrega o resultado\n\n# Usando a mesma receita com notas diferentes\nprint(calcular_media(7, 9))    # 8.0\nprint(calcular_media(5, 6))    # 5.5\n\nresultado = calcular_media(10, 8)\nprint('Média final:', resultado)"
+    },
+    "if_else": {
+      "dia_a_dia": "O if é uma decisão do dia a dia: se estiver chovendo, leve o guarda-chuva; senão, deixe em casa. O programa testa a condição e escolhe um único caminho.",
+      "codigo": "# Decidindo o que levar\nesta_chovendo = True\n\nif esta_chovendo:\n    print('Leve o guarda-chuva')\nelse:\n    print('Pode ir sem guarda-chuva')\n\n# Várias opções com elif\ntemperatura = 15\nif temperatura < 10:\n    print('Muito frio: casaco grosso')\nelif temperatura < 20:\n    print('Friozinho: leve uma blusa')\nelse:\n    print('Calor: roupa leve')"
+    },
+    "for": {
+      "dia_a_dia": "O for é como corrigir uma pilha de provas: você pega uma prova de cada vez, faz a mesma coisa com cada uma e para quando a pilha acaba.",
+      "codigo": "# Corrigindo as notas da turma\nnotas = [7, 4, 9, 6]\n\nfor nota in notas:              # uma nota de cada vez\n    if nota >= 6:\n        print(nota, '-> aprovado')\n    else:\n        print(nota, '-> recuperação')\n\n# Repetir um número fixo de vezes\nfor volta in range(1, 4):       # 1, 2, 3\n    print('Volta', volta, 'na quadra')"
+    },
+    "while": {
+      "dia_a_dia": "O while é como tentar destravar o celular: você continua digitando a senha enquanto ela estiver errada. Você não sabe quantas tentativas vão ser, só sabe quando parar.",
+      "codigo": "# Repete enquanto a senha estiver errada\nsenha_certa = '1234'\ntentativa = ''\n\nwhile tentativa != senha_certa:\n    tentativa = input('Digite a senha: ')\n\nprint('Celular desbloqueado!')\n\n# Contador: algo precisa mudar, senão o loop nunca acaba\ncopos = 0\nwhile copos < 3:\n    copos += 1\n    print('Copo de água número', copos)"
+    }
+  }
 }

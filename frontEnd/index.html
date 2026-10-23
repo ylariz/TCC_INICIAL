@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -22,33 +22,33 @@
                 <p>Usuário</p>
             </div>
 
-            <button class="settings">⚙</button>
+            <button class="settings" aria-label="Configurações">⚙</button>
         </div>
 
     </aside>
 
     <main class="main-content">
         <header class="topbar">
-            <button class="menu-button" onclick="abrirMenu()">☰</button>
+            <button class="menu-button" onclick="abrirMenu()" aria-label="Abrir menu">☰</button>
         </header>
 
         <section class="content">
             <div class="chat-container">
 
                 <div class="chat-box" id="chat-box">
-                    <div class="message ia">
-                        Olá sou Yana!, como posso ajudar?
-                    </div>
+                    <div class="message ia">Olá sou Yana!, como posso ajudar?</div>
 
-                    <div class="message user">
-                        Me explique a diferença de while e for.
-                    </div>
+                    <div class="message user">Me explique a diferença de while e for.</div>
                 </div>
 
-                <div class="chat-input">
-                    <input type="text" id="message-input" placeholder="Digite sua mensagem...">
+                <button class="raposa" id="raposa" type="button" aria-label="Raposa mascote. Clique para fazer carinho.">
+                    <img id="raposa-imagem" src="./assets/img/raposa/sentada.png" alt="" width="300" height="219">
+                </button>
 
-                    <button type="button" onclick="enviarMensagem()">
+                <div class="chat-input">
+                    <input type="text" id="message-input" placeholder="Digite sua mensagem..." autocomplete="off">
+
+                    <button type="button" id="botao-enviar" onclick="enviarMensagem()">
                         Enviar
                     </button>
                 </div>
@@ -57,8 +57,10 @@
 
             <nav class="menu-superior">
                 <div class="elementos">
-                    <li><a href="#">LOGO</a></li>
-                    <li>NOME DO SITE</a></li>
+                    <ul>
+                        <li><a href="#">LOGO</a></li>
+                        <li>NOME DO SITE</li>
+                    </ul>
                 </div>
 
 
@@ -69,13 +71,13 @@
                 <div class="terminal">
 
                     <p>TERMINAL</p>
-                    <textarea id="terminal"></textarea>
+                    <textarea id="terminal" spellcheck="false" autocomplete="off"></textarea>
                 </div>
 
 
                 <div class="feedback">
                     <p>Resultado do código...</p>
-                    <textarea id="feedback"></textarea>
+                    <textarea id="feedback" spellcheck="false"></textarea>
                 </div>
 
             </div>
@@ -83,6 +85,7 @@
     </main>
 
     <script src="./js/chat.js"></script>
+    <script src="./js/raposa.js"></script>
 </body>
 
 </html>
