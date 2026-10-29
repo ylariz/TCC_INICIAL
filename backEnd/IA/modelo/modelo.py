@@ -5,12 +5,6 @@ from IA.modelo.embeddings import Embeddings
 
 
 class RedeTutorPython(nn.Module):
-    """LSTM bidirecional com duas saídas (multitarefa):
-    - classificador_topico: qual assunto de Python (variavel, lista, for...)
-    - classificador_tipo:   o que o aluno quer (conceito, exemplo, erro, comparacao)
-
-    As duas saídas compartilham os embeddings e a LSTM, então o que a rede
-    aprende sobre a frase serve para as duas tarefas ao mesmo tempo."""
 
     def __init__(
         self,

@@ -17,8 +17,6 @@ SEMENTE = 42
 
 
 def treinar(epocas=60, taxa_aprendizado=0.002, tamanho_lote=16, prob_desconhecida=0.15):
-    # Semente fixa: o mesmo treino gera sempre o mesmo resultado
-    # (importante para comparar versões e citar números no TCC).
     torch.manual_seed(SEMENTE)
     random.seed(SEMENTE)
 
@@ -68,7 +66,6 @@ def treinar(epocas=60, taxa_aprendizado=0.002, tamanho_lote=16, prob_desconhecid
             otimizador.zero_grad()
             saida_topico, saida_tipo = modelo(entradas)
 
-            # A perda total é a soma das perdas das duas tarefas
             perda = criterio(saida_topico, alvos_topico) + criterio(saida_tipo, alvos_tipo)
             perda.backward()
             torch.nn.utils.clip_grad_norm_(modelo.parameters(), max_norm=5.0)
@@ -78,7 +75,6 @@ def treinar(epocas=60, taxa_aprendizado=0.002, tamanho_lote=16, prob_desconhecid
         dataset.prob_desconhecida = 0.0
         acc_topico, acc_tipo, acc_ambos = medir(modelo, loader_validacao)
 
-        # Guarda o modelo que acerta tópico E tipo juntos com mais frequência
         if acc_ambos >= melhor_acuracia:
             melhor_acuracia = acc_ambos
             salvar_checkpoint(modelo, dataset)

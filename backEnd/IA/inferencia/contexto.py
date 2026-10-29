@@ -4,8 +4,6 @@ class Contexto:
         self.historico = []
 
     def adicionar(self, pergunta, resposta, intencao=None, topico=None, origem=None):
-        # topico: assunto entendido nessa resposta (None se a Yana não entendeu)
-        # origem: de onde veio a resposta ("intents", "extra" ou "fallback")
         self.historico.append({
             "pergunta": pergunta,
             "resposta": resposta,
@@ -21,7 +19,6 @@ class Contexto:
         return list(self.historico)
 
     def ultimo_entendido(self):
-        """Última resposta em que a Yana entendeu o assunto."""
         for item in reversed(self.historico):
             if item.get("topico"):
                 return item

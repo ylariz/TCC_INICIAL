@@ -1,20 +1,17 @@
-# Ambiente virtual
 venv/
 env/
 .venv/
 
-# Cache do Python
 __pycache__/
 *.pyc
 *.pyo
 
-# Checkpoints do modelo 
 pesos/
+!IA/pesos/
+!IA/pesos/modelo.pth
 
-# Configurações de IDE
 .vscode/
 .idea/
 
-# Sistema operacional
 .DS_Store
 Thumbs.db

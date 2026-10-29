@@ -10,22 +10,18 @@ from IA.modelo.vocabulario import Vocabulario
 
 
 class DatasetTutor(Dataset):
-    """Lê o intents.json e gera, para cada frase de treino, dois rótulos:
-    o tópico (variavel, lista, for...) e o tipo de dúvida (conceito,
-    exemplo, erro, comparacao)."""
 
     def __init__(self, caminho_intents, tamanho_maximo=20, vocabulario=None):
         self.caminho_intents = Path(caminho_intents)
         self.tamanho_maximo = tamanho_maximo
         self.vocabulario = vocabulario or Vocabulario()
-        self.prob_desconhecida = 0.0  # o treino liga isso só nas épocas de treino
+        self.prob_desconhecida = 0.0
 
         with self.caminho_intents.open("r", encoding="utf-8") as arquivo:
             dados = json.load(arquivo)
 
         self.intents = dados["intents"]
 
-        # A ordem segue a primeira aparição no arquivo, então é sempre a mesma.
         topicos = list(dict.fromkeys(intent["topico"] for intent in self.intents))
         tipos = list(dict.fromkeys(intent["tipo"] for intent in self.intents))
 
@@ -48,9 +44,6 @@ class DatasetTutor(Dataset):
     def __getitem__(self, indice):
         tokens, topico, tipo = self.amostras[indice]
 
-        # Durante o treino, algumas palavras viram <UNK> ao acaso (word dropout).
-        # Assim a rede aprende a acertar mesmo com palavras que nunca viu,
-        # em vez de decorar uma palavra só.
         if self.prob_desconhecida > 0 and len(tokens) > 1:
             tokens = [
                 "<UNK>" if random.random() < self.prob_desconhecida else token

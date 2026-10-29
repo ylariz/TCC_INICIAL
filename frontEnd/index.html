@@ -4,41 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tcc</title>
+    <title>YAPY</title>
+    <link rel="icon" type="image/png" href="./assets/img/logo/yapy-logo.png">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
 
 
-    <aside class="menu-lateral" id="menu-lateral">
+    <aside class="menu-lateral" id="menu-lateral" aria-label="Menu lateral">
 
-        <div class="logo" onclick="abrirMenu()">☰</div>
+        <div class="menu-topo">
+            <button class="menu-button" id="botao-fechar-menu" type="button" onclick="abrirMenu()" aria-label="Fechar menu">☰</button>
+        </div>
+
+        <section class="historico" aria-labelledby="historico-titulo">
+            <h2 class="historico-titulo" id="historico-titulo">Conversas recentes</h2>
+
+            <ul class="historico-lista">
+                <li class="historico-item ativo" aria-current="true">
+                    <span class="historico-item-titulo">Aprendendo laços de repetição</span>
+                    <span class="historico-item-nota">Conversa de demonstração</span>
+                </li>
+            </ul>
+        </section>
 
         <div class="user-area">
-            <div class="user-image"></div>
+            <img class="user-image" src="./assets/img/logo/yapy-logo.png" alt="" width="50" height="50">
             <div class="user-info">
-                <h3>Larissa</h3>
+                <h3>Usuário Teste</h3>
                 <p>Usuário</p>
             </div>
 
-            <button class="settings" aria-label="Configurações">⚙</button>
+            <button class="settings" type="button" aria-label="Configurações">⚙</button>
         </div>
 
     </aside>
 
     <main class="main-content">
         <header class="topbar">
-            <button class="menu-button" onclick="abrirMenu()" aria-label="Abrir menu">☰</button>
+            <button class="menu-button" id="botao-menu" type="button" onclick="abrirMenu()" aria-label="Abrir menu" aria-controls="menu-lateral" aria-expanded="false">☰</button>
+
+            <div class="marca">
+                <img class="marca-logo" src="./assets/img/logo/yapy-logo.png" alt="" width="44" height="44">
+                <span class="marca-nome">YAPY</span>
+            </div>
         </header>
 
         <section class="content">
             <div class="chat-container">
 
                 <div class="chat-box" id="chat-box">
-                    <div class="message ia">Olá sou Yana!, como posso ajudar?</div>
-
-                    <div class="message user">Me explique a diferença de while e for.</div>
+                    <div class="message ia">Olá! Eu sou a Yana e vou te ajudar a aprender Python. Pode me perguntar sobre variáveis, listas, dicionários, funções, if/else, for e while: eu explico, mostro exemplos e ajudo com erros.</div>
                 </div>
 
                 <button class="raposa" id="raposa" type="button" aria-label="Raposa mascote. Clique para fazer carinho.">
@@ -55,34 +72,44 @@
 
             </div>
 
-            <nav class="menu-superior">
-                <div class="elementos">
-                    <ul>
-                        <li><a href="#">LOGO</a></li>
-                        <li>NOME DO SITE</li>
-                    </ul>
-                </div>
-
-
-            </nav>
-
             <div class="code-container">
 
                 <div class="terminal">
 
-                    <p>TERMINAL</p>
-                    <textarea id="terminal" spellcheck="false" autocomplete="off"></textarea>
+                    <div class="painel-topo">
+                        <p id="titulo-terminal">Terminal</p>
+                        <button type="button" class="botao-executar" id="botao-executar" onclick="executarCodigo()" aria-keyshortcuts="Control+Enter" title="Executar código (Ctrl+Enter)">Executar código</button>
+                    </div>
+                    <textarea id="terminal" aria-labelledby="titulo-terminal" aria-describedby="dica-editor" spellcheck="false" autocomplete="off" placeholder="# Escreva seu código Python aqui"></textarea>
+
+                    <div class="dica-editor" id="dica-editor">
+                        <span><kbd>Tab</kbd> indenta</span>
+                        <span><kbd>Shift</kbd>+<kbd>Tab</kbd> remove a indentação</span>
+                        <span><kbd>Esc</kbd> e depois <kbd>Tab</kbd> sai do editor</span>
+                        <span><kbd>Ctrl</kbd>+<kbd>Enter</kbd> executa</span>
+                    </div>
+
+                    <details class="entradas" id="painel-entradas">
+                        <summary>Entradas para <code>input()</code></summary>
+                        <label class="entradas-dica" for="entradas">Uma resposta por linha, na ordem em que o programa pede.</label>
+                        <textarea id="entradas" rows="3" spellcheck="false" autocomplete="off" placeholder="Ana&#10;20"></textarea>
+                    </details>
                 </div>
 
 
                 <div class="feedback">
-                    <p>Resultado do código...</p>
-                    <textarea id="feedback" spellcheck="false"></textarea>
+                    <div class="painel-topo">
+                        <p id="titulo-resultado">Resultado do código</p>
+                        <span class="status-execucao" id="status-execucao" role="status"></span>
+                    </div>
+                    <textarea id="feedback" aria-labelledby="titulo-resultado" spellcheck="false" readonly></textarea>
                 </div>
 
             </div>
         </section>
     </main>
+
+    <div id="aviso-leitor" class="so-leitor" aria-live="polite"></div>
 
     <script src="./js/chat.js"></script>
     <script src="./js/raposa.js"></script>

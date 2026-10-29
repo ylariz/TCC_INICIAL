@@ -31,11 +31,6 @@ body {
     left: 0;
 }
 
-.logo {
-    font-size: 28px;
-    cursor: pointer;
-}
-
 .user-area {
     display: flex;
     align-items: center;
@@ -44,8 +39,12 @@ body {
 }
 
 .user-image {
+    display: block;
+    flex-shrink: 0;
     width: 50px;
     height: 50px;
+    padding: 4px;
+    object-fit: contain;
     background-color: white;
     border-radius: 10px;
 }
@@ -84,19 +83,6 @@ body {
     cursor: pointer;
 }
 
-.menu-superior {
-    border: 1px solid red;
-}
-
-.elementos a {
-    text-decoration: none;
-
-}
-
-.elementos ul {
-    list-style-type: none;
-}
-
 .content {
     height: calc(100% - 60px);
     display: flex;
@@ -117,11 +103,8 @@ body {
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
-    border: 1px solid black;
     overflow-wrap: anywhere;
     white-space: pre-wrap;
-
-
 }
 
 .ia {
@@ -183,6 +166,25 @@ body {
 
 .code-container {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: 0;
+}
+
+.terminal,
+.feedback {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.terminal {
+    flex: 2;
+}
+
+.feedback {
+    flex: 1;
 }
 
 .content {
@@ -191,36 +193,24 @@ body {
 }
 
 textarea {
+    flex: 1;
+    min-height: 0;
     resize: none;
     width: 100%;
-    height: 100%;
-    border: 3px solid purple;
+    border: none;
+    border-radius: 20px;
 }
 
 #terminal {
-    padding: 30%;
+    padding: 16px;
     background-color: #383737;
 }
 
 #feedback {
-    padding: 11%;
+    padding: 16px;
     background-color: #b08968;
-
 }
 
-/* =========================================================
-   MELHORIAS (branch melhorias)
-   Tudo daqui pra baixo só complementa o que já existia:
-   mesmas cores, mesma estrutura. Pode apagar este bloco
-   inteiro que o site volta a ser exatamente como era.
-   ========================================================= */
-
-/* Lista do menu superior sem bolinhas (a regra .elementos ul já existia) */
-.elementos ul {
-    padding: 4px;
-}
-
-/* ---------- Menu lateral ---------- */
 .menu-lateral {
     transition: left 0.5s ease, box-shadow 0.5s ease;
 }
@@ -229,13 +219,11 @@ textarea {
     box-shadow: 4px 0 18px rgba(0, 0, 0, 0.15);
 }
 
-.logo,
 .settings,
 .menu-button {
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.logo:hover,
 .menu-button:hover {
     transform: scale(1.1);
 }
@@ -244,7 +232,6 @@ textarea {
     transform: rotate(60deg);
 }
 
-/* ---------- Chat ---------- */
 .chat-box {
     scroll-behavior: smooth;
     display: flex;
@@ -276,7 +263,6 @@ textarea {
     }
 }
 
-/* "Yana está pensando..." com os pontinhos piscando */
 .message.pensando::after {
     content: "";
     display: inline-block;
@@ -292,7 +278,6 @@ textarea {
     75%  { content: "..."; }
 }
 
-/* Código dentro das respostas da Yana (usa as cores do terminal) */
 .message pre.codigo {
     margin: 10px 0;
     padding: 12px;
@@ -306,12 +291,10 @@ textarea {
     line-height: 1.5;
 }
 
-/* Mensagem com código fica mais larga para o código não ser cortado */
 .message:has(pre.codigo) {
     max-width: 95%;
 }
 
-/* Barra de rolagem do chat nas cores do site */
 .chat-box::-webkit-scrollbar {
     width: 8px;
 }
@@ -326,7 +309,6 @@ textarea {
     scrollbar-color: #c7ab86 transparent;
 }
 
-/* ---------- Campo de mensagem ---------- */
 .chat-input {
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
@@ -349,7 +331,6 @@ textarea {
     cursor: wait;
 }
 
-/* Treme de leve quando tentam enviar mensagem vazia */
 .chat-input.vazio {
     animation: tremer 0.35s ease;
 }
@@ -360,7 +341,6 @@ textarea {
     75%      { transform: translateX(6px); }
 }
 
-/* ---------- Terminal e resultado ---------- */
 #terminal,
 #feedback {
     font-family: Consolas, "Courier New", monospace;
@@ -384,7 +364,6 @@ textarea {
     font-weight: bold;
 }
 
-/* ---------- Celular / tela pequena ---------- */
 @media (max-width: 900px) {
     body {
         height: auto;
@@ -418,8 +397,11 @@ textarea {
     }
 
     #terminal {
-        padding: 15%;
         min-height: 300px;
+    }
+
+    #feedback {
+        min-height: 150px;
     }
 
     .message {
@@ -427,7 +409,6 @@ textarea {
     }
 }
 
-/* Quem desativou animações no sistema não vê animação */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -440,18 +421,10 @@ textarea {
 }
 
 
-/* =========================================================
-   RAPOSA MASCOTE (js/raposa.js)
-   Fica sentada na borda de cima da caixa de mensagem.
-   Para tirar a raposa, apague este bloco, o <button id="raposa">
-   e o <script src="./js/raposa.js"> do index.html.
-   ========================================================= */
-
 .chat-container {
     position: relative;
 }
 
-/* espaço no fim do chat para a última mensagem não ficar atrás da raposa */
 .chat-box {
     padding-bottom: 100px;
 }
@@ -459,7 +432,7 @@ textarea {
 .raposa {
     position: absolute;
     right: 96px;
-    bottom: 64px;          /* patas encostadas na borda de cima da caixa de mensagem */
+    bottom: 64px;
     width: 152px;
     height: 111px;
     padding: 0;
@@ -484,7 +457,6 @@ textarea {
     -webkit-user-drag: none;
 }
 
-/* pulinho ao acordar, ao receber mensagem e no carinho */
 .raposa.pulando img {
     animation: raposa-pulo 0.45s ease-out;
 }
@@ -495,7 +467,6 @@ textarea {
     100% { transform: translateY(0) scale(1, 1); }
 }
 
-/* achatadinha ao deitar */
 .raposa.deitando img {
     animation: raposa-deitar 0.35s ease-in;
 }
@@ -505,7 +476,6 @@ textarea {
     100% { transform: scale(1.06, 0.92); }
 }
 
-/* inclinadinha de cabeça */
 .raposa.inclinando img {
     animation: raposa-inclinar 0.7s ease-in-out;
 }
@@ -516,7 +486,6 @@ textarea {
     70%      { transform: rotate(2deg); }
 }
 
-/* respiração lenta enquanto dorme */
 .raposa.dormindo img {
     animation: raposa-respirar 2.6s ease-in-out infinite;
 }
@@ -526,7 +495,6 @@ textarea {
     50%      { transform: scale(1.015, 1.035); }
 }
 
-/* "z z z" e "!" */
 .raposa-balao {
     position: absolute;
     font-family: "Courier New", monospace;
@@ -588,4 +556,466 @@ textarea {
     .raposa-balao.zzz:nth-of-type(3) {
         display: none;
     }
+}
+
+
+.topbar {
+    gap: 12px;
+}
+
+.menu-button {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #70503c;
+    font-size: 26px;
+    line-height: 1;
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.menu-button:hover {
+    transform: none;
+    background-color: #e8dccb;
+}
+
+.menu-button:active {
+    background-color: #d8c3a5;
+}
+
+.menu-button:focus-visible {
+    outline: 3px solid #70503c;
+    outline-offset: 2px;
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.marca-logo {
+    display: block;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+}
+
+.marca-nome {
+    color: #383737;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.chat-input input {
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    .topbar {
+        gap: 8px;
+    }
+
+    .marca-logo {
+        width: 38px;
+        height: 38px;
+    }
+
+    .marca-nome {
+        font-size: 22px;
+    }
+}
+
+
+.menu-lateral {
+    max-width: 85vw;
+    justify-content: flex-start;
+    gap: 16px;
+    visibility: hidden;
+    transition: left 0.5s ease, box-shadow 0.5s ease, visibility 0s linear 0.5s;
+}
+
+.menu-lateral.menu-aberto {
+    visibility: visible;
+    transition: left 0.5s ease, box-shadow 0.5s ease, visibility 0s;
+}
+
+.menu-topo {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.menu-lateral .menu-button:hover {
+    background-color: #d8c3a5;
+}
+
+.menu-lateral .menu-button:active {
+    background-color: #e8dccb;
+}
+
+.historico {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.historico-titulo {
+    padding: 0 12px;
+    color: #383737;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.historico-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.historico-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    color: #383737;
+}
+
+.historico-item.ativo {
+    background-color: #e8dccb;
+}
+
+.historico-item-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.historico-item-nota {
+    font-size: 12px;
+    color: #70503c;
+}
+
+.user-area {
+    flex-shrink: 0;
+    padding-top: 16px;
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+    color: #383737;
+}
+
+.user-info h3 {
+    overflow-wrap: anywhere;
+}
+
+.settings {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    color: #383737;
+    border-radius: 50%;
+}
+
+.settings:hover {
+    background-color: #d8c3a5;
+}
+
+.settings:focus-visible {
+    outline: 3px solid #70503c;
+    outline-offset: 2px;
+}
+
+
+.main-content {
+    min-width: 0;
+}
+
+.content {
+    gap: 24px;
+}
+
+.chat-container,
+.code-container {
+    width: auto;
+    min-width: 0;
+}
+
+.chat-container {
+    flex: 1 1 0;
+}
+
+.code-container {
+    flex: 1.1 1 0;
+}
+
+.chat-box {
+    min-width: 0;
+}
+
+.terminal p,
+.feedback p {
+    margin-bottom: 8px;
+    padding-left: 4px;
+    color: #383737;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+#terminal {
+    white-space: pre;
+    overflow: auto;
+    overflow-wrap: normal;
+    tab-size: 4;
+    scrollbar-width: thin;
+    scrollbar-color: #8a8584 transparent;
+}
+
+#terminal::selection {
+    background-color: #70503c;
+    color: #F4E6D3;
+}
+
+#feedback {
+    color: #000;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #70503c transparent;
+}
+
+.message pre.codigo {
+    max-width: 100%;
+}
+
+@media (max-width: 900px) {
+    .chat-container,
+    .code-container {
+        flex: none;
+    }
+}
+
+
+.bloco-codigo {
+    margin: 10px 0;
+    max-width: 100%;
+    background-color: #383737;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bloco-codigo-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 6px 6px 12px;
+    border-bottom: 1px solid rgba(244, 230, 211, 0.12);
+    white-space: normal;
+}
+
+.bloco-codigo-linguagem {
+    color: #c7ab86;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+}
+
+.bloco-codigo pre.codigo {
+    margin: 0;
+    border-radius: 0;
+}
+
+.botao-levar-editor,
+.botao-executar {
+    flex-shrink: 0;
+    min-height: 32px;
+    padding: 0 12px;
+    background-color: #8c674d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.botao-levar-editor:hover,
+.botao-executar:hover {
+    background-color: #70503c;
+}
+
+.botao-levar-editor:active,
+.botao-executar:active {
+    transform: scale(0.95);
+}
+
+.botao-levar-editor:focus-visible {
+    outline: 3px solid #F4E6D3;
+    outline-offset: 2px;
+}
+
+.botao-levar-editor.feito {
+    background-color: #F4E6D3;
+    color: #383737;
+}
+
+.so-leitor {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+.painel-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 32px;
+    margin-bottom: 8px;
+}
+
+.painel-topo p {
+    margin-bottom: 0;
+}
+
+.botao-executar:focus-visible {
+    outline: 3px solid #70503c;
+    outline-offset: 2px;
+}
+
+.botao-executar:disabled {
+    opacity: 0.6;
+    cursor: wait;
+    transform: none;
+    background-color: #8c674d;
+}
+
+.entradas {
+    flex-shrink: 0;
+    margin-top: 8px;
+    padding: 0 12px;
+    background-color: #e8dccb;
+    border-radius: 14px;
+    color: #383737;
+}
+
+.entradas[open] {
+    padding-bottom: 12px;
+}
+
+.entradas summary {
+    padding: 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.entradas summary:focus-visible {
+    outline: 3px solid #70503c;
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.entradas summary code {
+    font-family: Consolas, "Courier New", monospace;
+}
+
+.entradas-dica {
+    display: block;
+    margin-bottom: 6px;
+    color: #70503c;
+    font-size: 12px;
+}
+
+#entradas {
+    flex: none;
+    min-height: 0;
+    padding: 8px 10px;
+    background-color: #F4E6D3;
+    color: #383737;
+    border-radius: 10px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+#entradas:focus-visible {
+    outline: 2px solid #70503c;
+}
+
+.status-execucao {
+    min-width: 0;
+    color: #383737;
+    font-size: 13px;
+    text-align: right;
+}
+
+.status-execucao[data-tipo="carregando"] {
+    font-style: italic;
+}
+
+.status-execucao[data-tipo="erro"],
+.status-execucao[data-tipo="aviso"] {
+    color: #70503c;
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .painel-topo {
+        flex-wrap: wrap;
+    }
+}
+
+
+.dica-editor {
+    flex-shrink: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 14px;
+    margin-top: 6px;
+    padding: 0 4px;
+    color: #70503c;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.dica-editor kbd {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 11px;
+    padding: 0 4px;
+    background-color: #e8dccb;
+    border-radius: 4px;
+    color: #383737;
+}
+
+.dica-editor.destaque {
+    color: #383737;
+    font-weight: 700;
+}
+
+.status-execucao[data-tipo="anterior"] {
+    font-style: italic;
 }
