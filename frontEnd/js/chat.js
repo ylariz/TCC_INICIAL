@@ -1,5 +1,5 @@
-const URL_RENDER = "";
-const URL_BASE_API = URL_RENDER || "http://127.0.0.1:8000";
+const URL_RENDER = "https://yapy-backend.onrender.com";
+const URL_BASE_API = URL_RENDER;
 const URL_API = URL_BASE_API + "/pergunta";
 const URL_EXECUTAR = URL_BASE_API + "/execute";
 const CAMPO_PERGUNTA = "text";
