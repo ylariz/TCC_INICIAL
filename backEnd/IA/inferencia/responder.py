@@ -15,7 +15,6 @@ CAMINHO_MODELO = RAIZ / "pesos" / "modelo.pth"
 CAMINHO_INTENTS = RAIZ / "dados" / "intents.json"
 CAMINHO_CONHECIMENTO = RAIZ / "dados" / "conhecimento" / "python.json"
 
-# Abaixo destes valores a Yana prefere admitir que não entendeu
 LIMITE_TOPICO = 0.50
 LIMITE_TIPO = 0.45
 
@@ -31,17 +30,14 @@ RESPOSTA_EXEMPLO_SEM_ASSUNTO = (
 
 CONVITE_EXEMPLO = "Quer ver um exemplo prático? É só pedir."
 
-# Palavras que indicam que a pessoa está pedindo um exemplo
 PALAVRAS_PEDIDO_EXEMPLO = {"exemplo", "exemplos", "codigo", "codigos", "pratico", "pratica"}
 
-# Palavras comuns num pedido de exemplo que não dizem qual é o assunto
 PALAVRAS_DO_PEDIDO = PALAVRAS_PEDIDO_EXEMPLO | {
     "mostra", "mostrar", "mostre", "outro", "outra", "mais", "ver", "algum", "alguma",
     "tem", "dar", "da", "faz", "faca", "fazer", "quero", "queria", "consegue",
     "simples", "facil",
 }
 
-# Tipos de pergunta que são explicações e combinam com o convite para um exemplo
 TIPOS_COM_CONVITE = {"conceito", "comparacao"}
 
 
@@ -80,7 +76,6 @@ class Responder:
         with CAMINHO_INTENTS.open("r", encoding="utf-8") as arquivo:
             dados = json.load(arquivo)
 
-        # Resposta de cada combinação (topico, tipo)
         self.respostas = {
             (intent["topico"], intent["tipo"]): intent["response"]
             for intent in dados["intents"]
@@ -120,15 +115,9 @@ class Responder:
             "tokens": tokens,
         }
 
-        # 1) Pedido de exemplo sem dizer o assunto ("me dá um exemplo"):
-        #    usa o assunto da última resposta da conversa.
         if self.eh_pedido_de_exemplo_sem_assunto(tokens):
             return self.responder_exemplo_do_contexto(pergunta, resultado)
 
-        # 2) Pergunta normal: a rede decide o tópico e o tipo.
-        # A softmax sempre escolhe alguma classe, mesmo para "qual a capital
-        # do brasil". Por isso a pergunta precisa ter ao menos uma palavra
-        # do domínio; senão a rede estaria só "chutando".
         tem_palavra_do_dominio = any(t in self.palavras_do_dominio for t in tokens)
 
         entendeu = (
@@ -147,8 +136,6 @@ class Responder:
         resposta = self.respostas[(topico, tipo)]
         origem = "intents"
 
-        # Em explicações (conceito/comparação), a Yana já manda o exemplo extra
-        # se a pessoa pediu ("explica o while com um exemplo"); senão, convida.
         if tipo in TIPOS_COM_CONVITE and topico in self.extras:
             if any(t in PALAVRAS_PEDIDO_EXEMPLO for t in tokens):
                 resposta = f"{resposta}\n\n{montar_resposta_extra(self.extras[topico])}"
@@ -180,8 +167,6 @@ class Responder:
         extra = self.extras.get(topico)
         exemplo_do_intents = self.respostas.get((topico, "exemplo"))
 
-        # Alterna entre o exemplo extra e o exemplo do intents.json,
-        # para "me dá outro exemplo" não repetir a mesma resposta.
         if extra and anterior.get("origem") != "extra":
             resposta, origem = montar_resposta_extra(extra), "extra"
         elif exemplo_do_intents:
@@ -201,13 +186,10 @@ class Responder:
 
 
 def montar_resposta_extra(extra):
-    # O código vai entre ``` para o site mostrar como bloco de código
     return f"{extra['dia_a_dia']}\n\n```python\n{extra['codigo']}\n```"
 
 
 def carregar_extras():
-    """Exemplos extras de cada tópico (dia a dia + código comentado),
-    guardados em dados/conhecimento/python.json."""
     if not CAMINHO_CONHECIMENTO.exists():
         return {}
 
@@ -222,12 +204,6 @@ def carregar_extras():
 
 
 def calcular_palavras_do_dominio(intents):
-    """Palavras que indicam que a pergunta é sobre Python.
-
-    Sai dos próprios dados de treino: uma palavra é "do domínio" se for o
-    nome de um tópico (lista, for, while...) ou se aparecer em poucos
-    tópicos. Palavras que aparecem em quase todos os tópicos ("como",
-    "uma", "qual", "explica") são genéricas e não contam."""
     topicos_por_palavra = {}
     nomes_de_topicos = set()
 
